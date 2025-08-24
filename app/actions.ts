@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import OpenAI from "openai";
+import { Receipt } from "@/app/types";
 import getDataUrl from "@/utils/image";
 import { zodTextFormat } from "openai/helpers/zod.mjs";
 
@@ -47,13 +48,17 @@ const aiPrompts = {
 };
 
 export async function scanReceipt(
-  _previousState: { success: boolean | null; message: string; data: any },
+  _previousState: {
+    success: boolean | null;
+    message: string;
+    data: any | null;
+  },
   formData: FormData
-) {
+): Promise<{ success: boolean | null; message: string; data: Receipt | null }> {
   const image: File = formData.get("image") as File;
 
   if (!image) {
-    return { error: "No image provided" };
+    return { success: false, message: "No image provided", data: null };
   }
 
   try {
