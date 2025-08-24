@@ -85,5 +85,7 @@ export async function scanReceipt(formData: FormData) {
     const data = JSON.parse(response.output_text);
 
     return data;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error processing receipt:", error);
+  }
 }
