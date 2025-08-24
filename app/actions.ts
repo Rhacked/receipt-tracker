@@ -1,6 +1,7 @@
 import { z } from "zod";
 import OpenAI from "openai";
 import getDataUrl from "@/utils/image";
+import { zodTextFormat } from "openai/helpers/zod.mjs";
 
 const openAIClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -76,6 +77,7 @@ export async function scanReceipt(formData: FormData) {
           ],
         },
       ],
+      text: { format: zodTextFormat(ReceiptSchema, "receipt_schema") },
     });
 
     const data = JSON.parse(response.output_text);
