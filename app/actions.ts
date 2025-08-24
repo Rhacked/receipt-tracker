@@ -1,3 +1,5 @@
+"use server";
+
 import { z } from "zod";
 import OpenAI from "openai";
 import getDataUrl from "@/utils/image";
