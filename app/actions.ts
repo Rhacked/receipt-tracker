@@ -27,7 +27,7 @@ const ReceiptSchema = z.object({
       quantity: z.number(),
     })
   ),
-  warnings: z.array(z.string()).optional(),
+  warnings: z.array(z.string()).optional().nullable(),
 });
 
 const aiPrompts = {
