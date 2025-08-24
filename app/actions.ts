@@ -36,6 +36,8 @@ const aiPrompts = {
     "Normalize numbers using '.' as decimal separator.",
     "Store names should ONLY include brand names.",
     "Convert datetime to ISO 8601 format.",
+    "If two or more line items are equal, merge them into one.",
+    "Line Item descriptions should be lower case with capitalization.",
     "Infer any currency shown. If a field is missing, omit it",
     "If any value is uncertain (low confidence) add a short note to warnings[].",
   ],
