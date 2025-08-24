@@ -90,7 +90,7 @@ export async function scanReceipt(
 
     data.id = hash;
 
-    return data;
+    return { success: true, message: "", data: data };
   } catch (error) {
     console.error("Error processing receipt:", error);
     return { success: false, message: "Error processing receipt", data: null };
