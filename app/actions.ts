@@ -51,7 +51,7 @@ export async function scanReceipt(formData: FormData) {
   }
 
   try {
-    const dataUrl = await getDataUrl(image);
+    const { dataUrl, hash } = await getDataUrl(image);
 
     const response = await openAIClient.responses.create({
       model: "gpt-4o-mini",
@@ -79,6 +79,8 @@ export async function scanReceipt(formData: FormData) {
     });
 
     const data = JSON.parse(response.output_text);
+
+    data.id = hash;
 
     return data;
   } catch (error) {
