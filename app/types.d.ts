@@ -1,4 +1,5 @@
 export type Receipt = {
+  id: string;
   store: string;
   total: number;
   currency: string;

@@ -6,6 +6,7 @@ import { useActionState, useEffect, useState } from "react";
 
 export default function Upload() {
   const [formData, setFormData] = useState<Receipt>({
+    id: crypto.randomUUID(),
     store: "",
     total: 0,
     datetime: new Date().toISOString(),
@@ -40,6 +41,26 @@ export default function Upload() {
     }
   };
 
+  const handleFormDataSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const existingData = localStorage.getItem("receipts");
+
+    if (existingData) {
+      const parsedReceipts = JSON.parse(existingData) as Receipt[];
+      const existingReceipt = parsedReceipts.find(
+        (receipt) => receipt.id === formData.id
+      );
+      if (existingReceipt) {
+      } else {
+        parsedReceipts.push(formData);
+      }
+      localStorage.setItem("receipts", JSON.stringify(parsedReceipts));
+    } else {
+      localStorage.setItem("receipts", JSON.stringify([formData]));
+    }
+  };
+
   useEffect(() => {
     if (state.data) {
       setFormData(state.data);
@@ -54,9 +75,7 @@ export default function Upload() {
       </form>
       {state.success && formData && (
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+          onSubmit={handleFormDataSubmit}
           className="p-4 bg-blue-200 rounded-md"
         >
           <input
