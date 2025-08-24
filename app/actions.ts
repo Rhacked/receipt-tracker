@@ -5,6 +5,7 @@ import OpenAI from "openai";
 import { Receipt } from "@/app/types";
 import getDataUrl from "@/utils/image";
 import { zodTextFormat } from "openai/helpers/zod.mjs";
+import { categories } from "@/app/consts";
 
 const openAIClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -16,14 +17,7 @@ const ReceiptSchema = z.object({
   line_items: z.array(
     z.object({
       description: z.string(),
-      category: z
-        .literal("food")
-        .or(z.literal("transportation"))
-        .or(z.literal("clothing"))
-        .or(z.literal("household"))
-        .or(z.literal("pet"))
-        .or(z.literal("tobacco"))
-        .or(z.literal("other")),
+      category: z.enum(["", ...categories]),
       amount: z.number(),
       quantity: z.number(),
     })
