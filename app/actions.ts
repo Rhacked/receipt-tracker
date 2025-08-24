@@ -1,6 +1,6 @@
 import { z } from "zod";
 import OpenAI from "openai";
-import { createHash } from "crypto";
+import getDataUrl from "@/utils/image";
 
 const openAIClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -51,11 +51,7 @@ export async function scanReceipt(formData: FormData) {
   }
 
   try {
-    const arrayBuffer = await image.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    const base64String = buffer.toString("base64");
-    const mimeType = image.type;
-    const dataUrl = `data:${mimeType};base64,${base64String}`;
+    const dataUrl = await getDataUrl(image);
 
     const response = await openAIClient.responses.create({
       model: "gpt-4o-mini",
