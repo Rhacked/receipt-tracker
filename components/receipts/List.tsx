@@ -14,7 +14,10 @@ export default function List() {
     const existingData = localStorage.getItem("receipts");
     if (existingData) {
       const parsedReceipts = JSON.parse(existingData) as ReceiptType[];
-      setReceipts(parsedReceipts);
+      const orderByDate = parsedReceipts.sort((a, b) => {
+        return new Date(b.datetime).getTime() - new Date(a.datetime).getTime();
+      });
+      setReceipts(orderByDate);
     } else {
       setReceipts([]);
     }
