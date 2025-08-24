@@ -5,11 +5,13 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header className="bg-header">
-      <div className="flex justify-center">
+      <nav className="flex justify-center items-center font-semibold">
+        <Link href="/">Upload</Link>
         <Link href="/">
           <Image src={logo} alt="Logo" width={100} />
         </Link>
-      </div>
+        <Link href="/receipts">Receipts</Link>
+      </nav>
     </header>
   );
 }
