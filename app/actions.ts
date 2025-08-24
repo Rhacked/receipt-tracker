@@ -46,7 +46,10 @@ const aiPrompts = {
   ],
 };
 
-export async function scanReceipt(formData: FormData) {
+export async function scanReceipt(
+  _previousState: { success: boolean | null; message: string; data: any },
+  formData: FormData
+) {
   const image: File = formData.get("image") as File;
 
   if (!image) {
@@ -89,5 +92,6 @@ export async function scanReceipt(formData: FormData) {
     return data;
   } catch (error) {
     console.error("Error processing receipt:", error);
+    return { success: false, message: "Error processing receipt", data: null };
   }
 }
