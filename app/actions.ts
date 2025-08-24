@@ -1,0 +1,89 @@
+import { z } from "zod";
+import OpenAI from "openai";
+import { createHash } from "crypto";
+
+const openAIClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const ReceiptSchema = z.object({
+  store: z.string(),
+  total: z.number(),
+  currency: z.string(),
+  datetime: z.string().datetime(),
+  line_items: z.array(
+    z.object({
+      description: z.string(),
+      category: z
+        .literal("food")
+        .or(z.literal("transportation"))
+        .or(z.literal("clothing"))
+        .or(z.literal("household"))
+        .or(z.literal("pet"))
+        .or(z.literal("tobacco"))
+        .or(z.literal("other")),
+      amount: z.number(),
+      quantity: z.number(),
+    })
+  ),
+  warnings: z.array(z.string()).optional(),
+});
+
+const aiPrompts = {
+  system: [
+    "You are a careful extraction engine.",
+    "Return ONLY valid JSON that matches the provided JSON schema.",
+    "Do not include explanatory text or markdown.",
+  ],
+  user: [
+    "Extract a structured reciept object from this image.",
+    "Normalize numbers using '.' as decimal separator.",
+    "Store names should ONLY include brand names.",
+    "Convert datetime to ISO 8601 format.",
+    "Infer any currency shown. If a field is missing, omit it",
+    "If any value is uncertain (low confidence) add a short note to warnings[].",
+  ],
+};
+
+export async function scanReceipt(formData: FormData) {
+  const image: File = formData.get("image") as File;
+
+  if (!image) {
+    return { error: "No image provided" };
+  }
+
+  try {
+    const arrayBuffer = await image.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64String = buffer.toString("base64");
+    const mimeType = image.type;
+    const dataUrl = `data:${mimeType};base64,${base64String}`;
+
+    const response = await openAIClient.responses.create({
+      model: "gpt-4o-mini",
+      temperature: 0,
+      input: [
+        {
+          role: "system",
+          content: [{ type: "input_text", text: aiPrompts.system.join(" ") }],
+        },
+        {
+          role: "user",
+          content: [
+            {
+              type: "input_text",
+              text: aiPrompts.user.join(" "),
+            },
+            {
+              type: "input_image",
+              image_url: dataUrl,
+              detail: "high",
+            },
+          ],
+        },
+      ],
+    });
+
+    const data = JSON.parse(response.output_text);
+
+    return data;
+  } catch (error) {}
+}
