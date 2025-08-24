@@ -34,7 +34,7 @@ const aiPrompts = {
     "Do not include explanatory text or markdown.",
   ],
   user: [
-    "Extract a structured reciept object from this image.",
+    "Extract a structured receipt object from this image.",
     "Normalize numbers using '.' as decimal separator.",
     "Store names should ONLY include brand names.",
     "Convert datetime to ISO 8601 format.",
