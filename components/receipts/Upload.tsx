@@ -134,6 +134,7 @@ export default function Upload() {
           accept="image/*"
           required
           hidden
+          capture="environment"
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (file) {
