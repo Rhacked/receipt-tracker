@@ -47,7 +47,7 @@ export async function scanReceipt(
   _previousState: {
     success: boolean | null;
     message: string;
-    data: any | null;
+    data: Receipt | null;
   },
   formData: FormData
 ): Promise<{ success: boolean | null; message: string; data: Receipt | null }> {
