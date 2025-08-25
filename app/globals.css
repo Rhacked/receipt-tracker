@@ -18,6 +18,10 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+
+  @theme inline {
+    --color-header: #51a2ff;
+  }
 }
 
 body {
