@@ -23,6 +23,7 @@ export default function ListItem({
           {receipt.total.toLocaleString("no-NB", {
             minimumFractionDigits: 2,
           })}
+          &nbsp;
           {receipt.currency}
         </span>
         <span className="justify-self-center">
