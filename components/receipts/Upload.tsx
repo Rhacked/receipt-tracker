@@ -68,7 +68,9 @@ export default function Upload() {
   });
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
 
     if (name.startsWith("line_items_")) {
