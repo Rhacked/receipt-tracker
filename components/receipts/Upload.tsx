@@ -125,7 +125,7 @@ export default function Upload() {
     <div className="space-y-4">
       <form
         action={formAction}
-        className="border border-blue-400 p-4 rounded-md flex gap-4 items-center"
+        className="border border-blue-400 p-4 rounded-md flex justify-center gap-4 items-center"
       >
         <label htmlFor="image" className="hover:cursor-pointer">
           Upload your receipt
@@ -147,7 +147,9 @@ export default function Upload() {
         />
         <UploadSubmit disabled={!uploadedImage} />
       </form>
-      {uploadedImage && <img src={uploadedImage} className="max-w-[320px]" />}
+      {uploadedImage && (
+        <img src={uploadedImage} className="max-w-[320px] mx-auto" />
+      )}
 
       {state.success && formData && (
         <form onSubmit={handleFormDataSubmit}>
