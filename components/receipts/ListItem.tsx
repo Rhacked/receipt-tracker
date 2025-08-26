@@ -12,24 +12,28 @@ export default function ListItem({
 
   return (
     <div className="border border-header rounded-md p-4 shadow-md">
-      <div className="flex justify-between items-center">
+      <div className="grid grid-cols-4 items-center">
         <button
           onClick={() => setExpanded(!expanded)}
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer justify-self-start"
         >
           <strong>{receipt.store}</strong>
         </button>
-        {receipt.total.toLocaleString("no-NB", {
-          minimumFractionDigits: 2,
-        })}
-        {receipt.currency}
-        <span>{new Date(receipt.datetime).toLocaleDateString("no-NB")}</span>
+        <span className="justify-self-center">
+          {receipt.total.toLocaleString("no-NB", {
+            minimumFractionDigits: 2,
+          })}
+          {receipt.currency}
+        </span>
+        <span className="justify-self-center">
+          {new Date(receipt.datetime).toLocaleDateString("no-NB")}
+        </span>
         <button
           onClick={() => {
             onDeleteCallback(receipt.id);
           }}
           type="button"
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer justify-self-end"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
