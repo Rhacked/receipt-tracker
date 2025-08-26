@@ -1,9 +1,9 @@
 export const categories = [
-  "food",
-  "transportation",
-  "clothing",
-  "household",
-  "pet",
-  "tobacco",
-  "other",
+  "Food",
+  "Transportation",
+  "Clothing",
+  "Household",
+  "Pet",
+  "Tobacco",
+  "Other",
 ];
