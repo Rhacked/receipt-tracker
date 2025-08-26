@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import { NumericFormat } from "react-number-format";
 import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
+import { categories } from "@/app/consts";
 
 function UploadSubmit({ disabled = true }) {
   const { pending } = useFormStatus();
@@ -170,12 +171,17 @@ export default function Upload() {
                       />
                     </td>
                     <td className="px-4 py-3">
-                      <input
-                        type="text"
+                      <select
                         name={`line_items_${index}_category`}
                         value={item.category}
                         onChange={handleFormChange}
-                      />
+                      >
+                        {categories.map((category) => (
+                          <option key={category} value={category}>
+                            {category}
+                          </option>
+                        ))}
+                      </select>
                     </td>
                     <td className="px-4 py-3 text-right">
                       <NumericFormat
