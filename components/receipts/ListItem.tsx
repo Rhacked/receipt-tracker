@@ -7,15 +7,15 @@ export default function ListItem({ receipt }: { receipt: ReceiptType }) {
   return (
     <div className="border border-header rounded-md p-4 shadow-md">
       <div
-        className="hover:cursor-pointer"
+        className="hover:cursor-pointer flex justify-between items-center"
         onClick={() => setExpanded(!expanded)}
       >
-        <strong>{receipt.store}</strong> -{" "}
+        <strong>{receipt.store}</strong>
         {receipt.total.toLocaleString("no-NB", {
           minimumFractionDigits: 2,
-        })}{" "}
-        {receipt.currency} -&nbsp;
-        {new Date(receipt.datetime).toLocaleDateString("no-NB")}
+        })}
+        {receipt.currency}
+        <span>{new Date(receipt.datetime).toLocaleDateString("no-NB")}</span>
       </div>
       {expanded && (
         <div className="pl-4 space-y-1 mt-1">
