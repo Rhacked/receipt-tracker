@@ -55,7 +55,7 @@ export default function List() {
           </svg>
         </div>
       ) : (
-        <ul>
+        <ul className="space-y-4 mt-4">
           {receipts.map((receipt) => (
             <li key={receipt.id}>
               <ListItem receipt={receipt} />
