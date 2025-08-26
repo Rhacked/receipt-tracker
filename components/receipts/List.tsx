@@ -10,6 +10,13 @@ export default function List() {
   );
   const [loading, setLoading] = useState(true);
 
+  const handleDeleteCallback = (id: string) => {
+    const updatedReceipts = receipts?.filter((receipt) => receipt.id !== id);
+    setReceipts(updatedReceipts);
+
+    localStorage.setItem("receipts", JSON.stringify(updatedReceipts));
+  };
+
   useEffect(() => {
     const existingData = localStorage.getItem("receipts");
     if (existingData) {
@@ -58,7 +65,10 @@ export default function List() {
         <ul className="space-y-4 mt-4">
           {receipts.map((receipt) => (
             <li key={receipt.id}>
-              <ListItem receipt={receipt} />
+              <ListItem
+                receipt={receipt}
+                onDeleteCallback={handleDeleteCallback}
+              />
             </li>
           ))}
         </ul>
