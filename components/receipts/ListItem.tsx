@@ -1,3 +1,4 @@
+import StringUtils from "@/utils/strings";
 import { Receipt as ReceiptType } from "@/app/types";
 import { useState } from "react";
 
