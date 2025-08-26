@@ -53,7 +53,7 @@ export default function ListItem({
         <div className="pl-4 space-y-1 mt-1">
           {receipt.line_items.map((item, index) => (
             <div key={index}>
-              {item.description} - {item.category} -{" "}
+              {item.description} - {StringUtils.capitalize(item.category)} -{" "}
               {item.amount.toLocaleString("no-NB", {
                 minimumFractionDigits: 2,
               })}
