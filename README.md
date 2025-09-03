@@ -8,7 +8,7 @@ categorizing your daily spending.
 1. Clone the repository
 
 ```sh
-git@github.com:Rhacked/receipt-tracker.git
+git clone https://github.com/Rhacked/receipt-tracker.git
 cd receipt-tracker
 ```
 
