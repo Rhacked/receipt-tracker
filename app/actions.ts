@@ -7,7 +7,7 @@ import getDataUrl from "@/utils/image";
 import { zodTextFormat } from "openai/helpers/zod.mjs";
 import { categories } from "@/app/consts";
 
-const openAIClient = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const openAIClient = process.env.OPENAI_API_KEY ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
 
 const ReceiptSchema = z.object({
   store: z.string(),
@@ -51,6 +51,10 @@ export async function scanReceipt(
   },
   formData: FormData
 ): Promise<{ success: boolean | null; message: string; data: Receipt | null }> {
+  if (!openAIClient) {
+    throw new Error("No Open AI Client");
+  }
+
   const image: File = formData.get("image") as File;
 
   if (!image) {
